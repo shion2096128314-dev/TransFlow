@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Syntax + bat ASCII rule
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile all Python files
+        run: |
+          python -m py_compile \
+            translate.py core.py export.py \
+            _batch_files.py _recycle_json.py \
+            _gen_bat.py _gen_export.py
+
+      - name: Bat files must be pure ASCII
+        run: |
+          fail=0
+          for f in *.bat; do
+            if ! iconv -f ASCII -t ASCII "$f" > /dev/null 2>&1; then
+              echo "::error file=$f::$f contains non-ASCII characters (breaks cmd on non-CJK code pages)"
+              fail=1
+            fi
+          done
+          if [ "$fail" -eq 1 ]; then exit 1; fi
+          echo "all bat files are pure ASCII"
+
+  import-check:
+    name: Dependency import check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install system libraries for OpenCV
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1 libglib2.0-0
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Import all modules
+        run: |
+          python -c "import cv2, numpy, PIL, requests, rapidocr; from core import OCREngine, OllamaTranslator, TextEraser, TextRenderer; print('imports OK')"

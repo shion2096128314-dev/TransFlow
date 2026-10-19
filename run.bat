@@ -1,16 +1,16 @@
 @echo off
-chcp 65001 >nul
-title TransFlow - 本地图片翻译嵌字
-cd /d %~dp0
+chcp 936 >nul
+title TransFlow - fixed input folder mode
+cd /d "%~dp0"
 
-rem 清掉系统代理，防止本地 Ollama 调用被劫持
+rem Clear system proxy so local Ollama calls are not hijacked
 set HTTP_PROXY=
 set HTTPS_PROXY=
 set http_proxy=
 set https_proxy=
 
 echo ============================================
-echo   TransFlow 输入: input\  输出: output\
+echo   TransFlow  input: input\  output: output\
 echo ============================================
 ".venv\Scripts\python.exe" translate.py --bilingual %*
 echo.

@@ -1,5 +1,7 @@
 # TransFlow
 
+![CI](https://github.com/shion2096128314-dev/TransFlow/actions/workflows/ci.yml/badge.svg)
+
 **本地图片翻译 + 自动嵌字流水线（全离线）**：把一文件夹日文/英文漫画拖到 bat 上，还你一整套嵌好中文译文的成品图。OCR、翻译、擦字、嵌字全部在本机完成，图片不出门。
 
 > **English**: TransFlow is a fully offline image/manga translation pipeline. RapidOCR finds the text bubbles, a local LLM (via Ollama) translates them, OpenCV inpaints the original text away, and Pillow renders the translation back into place — complete with automatic font sizing, line wrapping, centering and stroke. Windows-first with drag-and-drop `.bat` entry points; everything is also scriptable from the command line.
@@ -11,6 +13,12 @@
 | 输入 | 日文/英文漫画页（jpg / png / webp / bmp），可含子目录 |
 | 输出 | `translated\` 里的汉化成品图 + 双语对照图 + json 复查文件 |
 | 速度 | 混元 Hy-MT2-1.8B 约 4 秒/张（44 页约 3 分钟）；Qwen3-8B 约 25-30 秒/张 |
+
+实跑演示（合成测试图，非真实漫画）：
+
+| 原图（日文） | 成品（中文嵌回） |
+|:---:|:---:|
+| ![before](docs/demo-before.png) | ![after](docs/demo-after.png) |
 
 ## 流水线
 
@@ -110,7 +118,8 @@ python _recycle_json.py "D:\漫画\第01话\translated"
 
 ## 攻略与排障
 
-场景化教程、模型选择、排障手册见 **[docs/使用攻略.md](docs/使用攻略.md)**。
+- 中文攻略：[docs/使用攻略.md](docs/使用攻略.md) —— 场景化教程 + 模型选择 + 排障手册 + 高手向
+- English playbook: [docs/PLAYBOOK.md](docs/PLAYBOOK.md)
 
 踩坑速查：
 

@@ -53,7 +53,7 @@ echo   1. Install Ollama:  https://ollama.com/download
 echo   2. Pull the model:  ollama pull maternion/hy-mt2:1.8b
 echo   3. Drag a folder of images onto TransFlow-HyMT2.bat
 echo.
-echo   Full guide: README.md  /  docs\使用攻略.md
+echo   Full guide: README.md  /  docs\PLAYBOOK.md
 echo ============================================
 echo.
 pause
