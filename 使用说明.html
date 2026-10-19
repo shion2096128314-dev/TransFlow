@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TransFlow 使用说明</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 40px 24px 64px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    background: #f6f7f9; color: #1d2430; line-height: 1.75;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  h1 { font-size: 30px; margin: 0 0 6px; letter-spacing: -0.4px; }
+  .sub { color: #6a7484; font-size: 15px; margin-bottom: 34px; }
+  h2 {
+    font-size: 19px; margin: 40px 0 16px; padding-left: 12px;
+    border-left: 4px solid #2f6fed; line-height: 1.3;
+  }
+  .card {
+    background: #fff; border: 1px solid #e3e8ef; border-radius: 14px;
+    padding: 22px 26px; margin-bottom: 16px;
+  }
+  .step { display: flex; gap: 16px; align-items: flex-start; }
+  .num {
+    flex: 0 0 30px; height: 30px; border-radius: 50%;
+    background: #2f6fed; color: #fff; font-weight: 700; font-size: 15px;
+    display: flex; align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .step p { margin: 2px 0 0; }
+  code {
+    background: #eef2f8; padding: 2px 7px; border-radius: 5px;
+    font-family: "Cascadia Mono", Consolas, monospace; font-size: 13.5px;
+    color: #1f4fd0;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e3e8ef; }
+  th { background: #f0f4fa; font-weight: 600; }
+  .green { color: #16794e; font-weight: 600; }
+  .warn {
+    background: #fff8e6; border: 1px solid #f2dfa8;
+    border-left: 4px solid #e0a800; border-radius: 10px; padding: 14px 18px; margin: 14px 0;
+  }
+  .tip {
+    background: #eaf4ff; border: 1px solid #bcd9f7;
+    border-left: 4px solid #2f6fed; border-radius: 10px; padding: 14px 18px; margin: 14px 0;
+  }
+  ul { padding-left: 22px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  .kbd {
+    display: inline-block; background: #fff; border: 1px solid #cbd5e1;
+    border-bottom-width: 2px; border-radius: 6px; padding: 1px 8px;
+    font-size: 13px; font-family: inherit;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>TransFlow 使用说明</h1>
+  <div class="sub">把图片丢进去，自动翻译成中文并嵌回原位置。全程离线。</div>
+
+  <h2>最简单的用法：三步搞定</h2>
+
+  <div class="card">
+    <div class="step">
+      <div class="num">1</div>
+      <div>
+        <p><strong>找到放漫画的文件夹</strong></p>
+        <p>比如 <code>D:\漫画\第01话</code>，文件夹里直接放着一张张图片就行。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="step">
+      <div class="num">2</div>
+      <div>
+        <p><strong>把文件夹拖到 bat 图标上</strong></p>
+        <p>按住文件夹不放 → 拖到 <code>TransFlow-HyMT2-toFolder.bat</code> 图标上 → 松手。</p>
+        <p><span class="kbd">注意</span> 不是双击，是「按住拖过去松手」。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="step">
+      <div class="num">3</div>
+      <div>
+        <p><strong>等它跑完，去拿成品</strong></p>
+        <p>黑窗口会显示进度，跑完停在「请按任意键继续」。</p>
+        <p>成品在：<code>transflow\output\<你那个文件夹的名字>\</code></p>
+      </div>
+    </div>
+  </div>
+
+  <h2>四个 bat，怎么选？</h2>
+
+  <div class="card">
+    <table>
+      <tr><th>文件</th><th>用什么模型</th><th>成品放哪</th></tr>
+      <tr><td><code>TransFlow-HyMT2-toFolder.bat</code></td><td>混元 1.8B（快）</td><td><span class="green">transflow\output\ 里</span></td></tr>
+      <tr><td><code>TransFlow-Qwen-toFolder.bat</code></td><td>Qwen 破限 8B（慢）</td><td><span class="green">transflow\output_qwen\ 里</span></td></tr>
+      <tr><td><code>TransFlow-HyMT2.bat</code></td><td>混元 1.8B（快）</td><td>源文件夹旁边的 translated\</td></tr>
+      <tr><td><code>TransFlow-Qwen.bat</code></td><td>Qwen 破限 8B（慢）</td><td>源文件夹旁边的 translated_qwen\</td></tr>
+    </table>
+    <div class="tip" style="margin-top:16px">
+      <strong>日常只记两个就够了：</strong>想让成品单独放一起用 <code>-toFolder</code>，想让它挨着原图用不带后缀的那个。
+    </div>
+    <div class="tip" style="margin-top:12px">
+      <strong>还有个 <code>TransFlow-EXPORT.bat</code>：</strong>它不翻译，是把翻译记录（json）导出成 txt/csv 对照表的——把<b>翻译输出文件夹</b>拖到它上面就行。
+    </div>
+  </div>
+
+  <h2>会出来哪些文件？</h2>
+
+  <div class="card">
+    <p>假设你拖进去的文件夹叫「第01话」，里面有一张 <code>page1.jpg</code>：</p>
+    <table>
+      <tr><th>文件</th><th>是什么</th><th>你要不要管</th></tr>
+      <tr><td><code>page1.jpg</code></td><td>汉化好的成品图</td><td><span class="green">✓ 这是你要的</span></td></tr>
+      <tr><td><code>page1.bilingual.jpg</code></td><td>双语对照图（原文位置压着译文，方便校对）</td><td>可选，看完删掉也行</td></tr>
+      <tr><td><code>page1.json</code></td><td>文字坐标和译文记录</td><td>排查用，一般不用看</td></tr>
+    </table>
+  </div>
+
+  <h2>常见问题</h2>
+
+  <div class="card">
+    <p><strong>Q：拖进去没反应 / 窗口一闪就没了？</strong><br>
+    先看 <code>transflow\logs\bat_trace.log</code> 里有没有新的一行。有行说明 bat 跑起来了（问题在后面），没行说明系统没让它执行（右键 bat → 属性 → 看看底部有没有「解除锁定」）。</p>
+
+    <p><strong>Q：为什么这么慢？</strong><br>
+    混元 1.8B 约 4 秒/张；Qwen 8B 约 25-30 秒/张。44 页的话前者 3 分钟、后者 20 分钟左右。日常用混元。</p>
+
+    <p><strong>Q：想改输出位置？</strong><br>
+    记事本打开 toFolder 的 bat，把 <code>--outroot output</code> 里的 output 换成你要的路径就行。</p>
+
+    <p><strong>Q：翻译错了怎么办？</strong><br>
+    看那个 <code>.json</code>，里面有原文和译文的对照。改完想重来就把输出目录删了再拖一次。</p>
+  </div>
+
+  <div class="warn">
+    <strong>注意：</strong>输出目录不要放在要翻译的源目录里面（已经自动跳过 translated/output 这类名字），否则会重复翻译。
+  </div>
+
+</div>
+</body>
+</html>

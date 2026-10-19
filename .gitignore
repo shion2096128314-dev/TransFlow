@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 运行产物（目录结构用 .gitkeep 保留）
+logs/*.log
+input/*
+!input/.gitkeep
+output/*
+!output/.gitkeep
+output_qwen/*
+!output_qwen/.gitkeep
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
+.DS_Store
